@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "205780061870",
+    "project_id": "blazingtask",
+    "storage_bucket": "blazingtask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205780061870:android:4d1eae9f058a91c453e73f",
+        "android_client_info": {
+          "package_name": "de.agx.blazingtask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205780061870-ejdb98t8vlvlptr0k94r9uucjgf71npa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAARSTT6alk7KpzkE2jWjzMHfYwCizz940"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205780061870-ejdb98t8vlvlptr0k94r9uucjgf71npa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

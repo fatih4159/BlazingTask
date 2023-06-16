@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="androidx.core.content.ContextCompat"/>
+        <!--import type="android.graphics.Color"/-->
+        <variable
+                name="data"
+                type="de.agx.blazingtask.ui.types.TaskTime"/>
+        <variable
+                name="callback"
+                type="de.agx.blazingtask.ui.types.TaskTime.Callbacks"/>
+
+    </data>
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/holo_orange_light"
+            app:cardCornerRadius="10dp"
+            android:onClick="@{() -> callback.onItemClicked()}"
+            android:layout_margin="4dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:backgroundTint="@android:color/holo_orange_light"
+                android:elevation="10dp"
+                android:orientation="vertical"
+                tools:targetApi="lollipop">
+
+
+            <TextView
+                    android:id="@+id/tv_taskStartTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{data.taskTimeStampStart}"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_taskName"
+                    tools:text="19:00"/>
+
+            <TextView
+                    android:id="@+id/tv_taskEndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{data.taskTimeStampFinish}"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_taskDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_taskDate"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="18:00"/>
+
+            <TextView
+                    android:id="@+id/lbl_taskStartTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Start"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_taskStartTime"
+                    app:layout_constraintStart_toStartOf="@+id/tv_taskStartTime"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"/>
+
+            <TextView
+                    android:id="@+id/lbl_taskEndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="End"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_taskEndTime"
+                    app:layout_constraintStart_toStartOf="@+id/tv_taskEndTime"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_taskStartTime"
+                    app:layout_constraintVertical_bias="1.0"/>
+
+            <View
+                    android:id="@+id/divider_v"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toBottomOf="@+id/divider_h"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/divider_h"
+                    app:layout_constraintTop_toTopOf="@+id/divider_h"/>
+
+            <TextView
+                    android:id="@+id/lbl_taskName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Task"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_taskName"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/tv_taskName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{data.taskName}"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_v"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_taskTotalTime"
+                    app:layout_constraintStart_toEndOf="@+id/divider_h"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_taskName"
+                    tools:text="Task Name"/>
+
+            <View
+                    android:id="@+id/divider_h"
+                    android:layout_width="1dp"
+                    android:layout_height="110dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/divider_v"
+                    app:layout_constraintStart_toEndOf="@+id/tv_taskStartTime"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/lbl_taskDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Start Date"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_taskDate"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_v"/>
+
+            <TextView
+                    android:id="@+id/tv_taskDate"
+                    android:layout_width="0dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="17dp"
+                    android:text="@{data.taskDate}"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/divider_h"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/divider_h"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_v"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="Mo 19.03.2022"/>
+
+            <TextView
+                    android:id="@+id/lbl_taskTotalTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Task Time"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_taskTotalTime"
+                    app:layout_constraintTop_toTopOf="@+id/lbl_taskName"/>
+
+            <TextView
+                    android:id="@+id/tv_taskTotalTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{data.taskTimeDuration}"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/divider_h"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_taskTotalTime"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="02:30"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
