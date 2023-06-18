@@ -48,7 +48,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_taskName"
+                    app:layout_constraintTop_toTopOf="@+id/tv_taskType"
                     tools:text="19:00"/>
 
             <TextView
@@ -106,7 +106,7 @@
                     app:layout_constraintTop_toTopOf="@+id/divider_h"/>
 
             <TextView
-                    android:id="@+id/lbl_taskName"
+                    android:id="@+id/lbl_taskType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -114,23 +114,23 @@
                     android:textColor="@android:color/black"
                     android:textSize="10sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/tv_taskName"
+                    app:layout_constraintStart_toStartOf="@+id/tv_taskType"
                     app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                    android:id="@+id/tv_taskName"
+                    android:id="@+id/tv_taskType"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@{data.taskName}"
+                    android:text="@{data.taskType}"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_v"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_taskTotalTime"
                     app:layout_constraintStart_toEndOf="@+id/divider_h"
-                    app:layout_constraintTop_toBottomOf="@+id/lbl_taskName"
-                    tools:text="Task Name"/>
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_taskType"
+                    tools:text="Task Name"
+                    app:layout_constraintEnd_toStartOf="@+id/divider_h2"
+                    android:layout_marginEnd="8dp"/>
 
             <View
                     android:id="@+id/divider_h"
@@ -142,6 +142,16 @@
                     app:layout_constraintEnd_toStartOf="@+id/divider_v"
                     app:layout_constraintStart_toEndOf="@+id/tv_taskStartTime"
                     app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                    android:id="@+id/divider_h2"
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_taskTotalTime"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_taskType"
+                    android:layout_marginEnd="8dp"/>
 
             <TextView
                     android:id="@+id/lbl_taskDate"
@@ -175,27 +185,28 @@
                     android:id="@+id/lbl_taskTotalTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Task Time"
+                    android:text="Duration"
                     android:textColor="@android:color/black"
                     android:textSize="10sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/tv_taskTotalTime"
-                    app:layout_constraintTop_toTopOf="@+id/lbl_taskName"/>
+                    app:layout_constraintTop_toTopOf="@+id/lbl_taskType"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_taskTotalTime"
+                    android:layout_marginTop="8dp"/>
 
             <TextView
                     android:id="@+id/tv_taskTotalTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@{data.taskTimeDuration}"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/divider_h"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/lbl_taskTotalTime"
-                    app:layout_constraintVertical_bias="0.0"
-                    tools:text="02:30"/>
+                    tools:text="02:30"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_v"
+                    android:layout_marginBottom="8dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

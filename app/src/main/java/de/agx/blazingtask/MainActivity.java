@@ -62,16 +62,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
-    private void testinsert() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                appDatabase.taskTimeDao().insert(new TaskTime("Test","Test","Test","Test","Test","Test","Test"));
-            }
-        });
-
-    t.start();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

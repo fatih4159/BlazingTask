@@ -68,10 +68,6 @@ public class AddTaskToListDIalog extends DialogFragment {
                         tasktime.setTaskDate(TaskTime.millisToDateTime(System.currentTimeMillis()));
                         tasktime.setTaskUser("TestUser");
                         tasktime.setTaskType(binding.spTypeSelect.getSelectedItem().toString());
-                        tasktime.setTaskName(binding.spTypeSelect.getSelectedItem().toString());
-                        tasktime.setTaskTimeStampStart(TaskTime.millilsToTime(System.currentTimeMillis()));
-                        tasktime.setTaskTimeStampFinish("0");
-                        tasktime.setTaskTimeDuration("0");
 
 
 
