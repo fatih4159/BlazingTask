@@ -1,12 +1,15 @@
 package de.agx.blazingtask.ui.types;
 
+import android.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import de.agx.blazingtask.MainActivity;
 import de.agx.blazingtask.ui.tasks.TasksCallback;
@@ -150,11 +153,11 @@ public class TaskTime extends BaseObservable {
         notifyPropertyChanged(de.agx.blazingtask.BR.taskTimeDuration);
     }
 
-    public static String millisToDateTime (long timestamp) {
+    public static String millisToDateTime(long timestamp) {
 
         Date date = new Date(timestamp);
         SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE dd.MM.yyyy HH:mm:ss", Locale.getDefault());
-        Log.d(TAG, "millisToDateTime:  " + outputFormat.format(date) );
+        Log.d(TAG, "millisToDateTime:  " + outputFormat.format(date));
 
         return outputFormat.format(date);
     }
@@ -162,27 +165,67 @@ public class TaskTime extends BaseObservable {
     public static String millilsToTime(long milis) {
         Date date = new Date(milis);
         SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        Log.d(TAG, "millisToDate:  " + outputFormat.format(date) );
+        Log.d(TAG, "millisToDate:  " + outputFormat.format(date));
 
         return outputFormat.format(date);
     }
 
     public static class Callbacks {
+        AlertDialog dialog ;
+
         public void onItemClicked() {
             // do something
         }
 
-
         public boolean onTaskLongClick(View view, TaskTime taskTime) {
             Log.d(TAG, "onTaskLongClick: " + taskTime.toString());
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    getRepository(MainActivity.getContext()).deleteTaskTime(taskTime);
-                }
-            }).start();
-            Snackbar.make(view, "Task deleted", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+            MaterialButton btn_delete = new MaterialButton(view.getContext());
+            btn_delete.setText("Delete");
+            btn_delete.setOnClickListener((v)->{
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getRepository(MainActivity.getContext()).deleteTaskTime(taskTime);
+                            dialog.dismiss();
+                        }
+                    }).start();
+            });
+
+            MaterialButton btn_edit = new MaterialButton(view.getContext());
+            btn_edit.setText("Edit");
+
+            MaterialButton btn_start = new MaterialButton(view.getContext());
+            btn_start.setText("Start");
+
+            MaterialButton btn_stop = new MaterialButton(view.getContext());
+            btn_stop.setText("Stop");
+
+            MaterialButton btn_cancel = new MaterialButton(view.getContext());
+            btn_cancel.setText("Cancel");
+            btn_cancel.setOnClickListener((v)->{
+                dialog.dismiss();
+            });
+
+            LinearLayout layout = new LinearLayout(view.getContext());
+            layout.setOrientation(LinearLayout.VERTICAL);
+            layout.addView(btn_start);
+            layout.addView(btn_stop);
+            layout.addView(btn_edit);
+            layout.addView(btn_delete);
+            layout.addView(btn_cancel);
+            layout.setPadding(20, 20, 20, 20);
+
+
+            builder.setTitle("Item Menu");
+            builder.setView(layout);
+            builder.setCancelable(true);
+            dialog= builder.create();
+            dialog.show();
+
+
+
             return true;
         }
 
