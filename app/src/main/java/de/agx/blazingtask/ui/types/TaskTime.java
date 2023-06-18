@@ -1,10 +1,15 @@
 package de.agx.blazingtask.ui.types;
 
+import android.util.Log;
+import android.view.View;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.google.android.material.snackbar.Snackbar;
+import de.agx.blazingtask.MainActivity;
+import de.agx.blazingtask.ui.tasks.TasksCallback;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,8 +17,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static de.agx.blazingtask.db.TaskRepository.getRepository;
+
 @Entity(tableName = "task_time")
 public class TaskTime extends BaseObservable {
+
+    private static final String TAG = "TaskTime";
 
     public TaskTime(String taskDate, String taskUser, String taskType,
                     String taskName, String taskTimeStampStart, String taskTimeStampFinish, String taskTimeDuration) {
@@ -50,6 +59,10 @@ public class TaskTime extends BaseObservable {
     @ColumnInfo(name = "task_time_duration")
     private String taskTimeDuration;
 
+    public TaskTime() {
+
+    }
+
     @Bindable
     public int getId() {
         return id;
@@ -62,17 +75,8 @@ public class TaskTime extends BaseObservable {
 
     @Bindable
     public String getTaskDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-        Calendar calendar = Calendar.getInstance();
-        try {
-            calendar.setTime(dateFormat.parse(taskDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        // Format date and day name
-        SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy.MM.dd EEEE", Locale.getDefault());
-        return newDateFormat.format(calendar.getTime());
+        return this.taskDate;
     }
 
     public void setTaskDate(String taskDate) {
@@ -112,52 +116,75 @@ public class TaskTime extends BaseObservable {
 
     @Bindable
     public String getTaskTimeStampStart() {
-        return formatDate(taskTimeStampStart);
+        return taskTimeStampStart;
     }
 
     public void setTaskTimeStampStart(String taskTimeStampStart) {
+
+
         this.taskTimeStampStart = taskTimeStampStart;
         notifyPropertyChanged(de.agx.blazingtask.BR.taskTimeStampStart);
     }
 
     @Bindable
     public String getTaskTimeStampFinish() {
-        return formatDate(taskTimeStampFinish);
+        return taskTimeStampFinish;
     }
 
     public void setTaskTimeStampFinish(String taskTimeStampFinish) {
+
         this.taskTimeStampFinish = taskTimeStampFinish;
         notifyPropertyChanged(de.agx.blazingtask.BR.taskTimeStampFinish);
     }
 
     @Bindable
     public String getTaskTimeDuration() {
+        //updateDuration();
         return taskTimeDuration;
     }
 
+
     public void setTaskTimeDuration(String taskTimeDuration) {
         this.taskTimeDuration = taskTimeDuration;
+        //updateDuration();
         notifyPropertyChanged(de.agx.blazingtask.BR.taskTimeDuration);
     }
 
-    private String formatDate(String timestamp) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss", Locale.getDefault());
+    public static String millisToDateTime (long timestamp) {
 
-        Date date;
-        try {
-            date = inputFormat.parse(timestamp);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return "";
-        }
+        Date date = new Date(timestamp);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE dd.MM.yyyy HH:mm:ss", Locale.getDefault());
+        Log.d(TAG, "millisToDateTime:  " + outputFormat.format(date) );
 
         return outputFormat.format(date);
     }
 
-    public class Callbacks {
+    public static String millilsToTime(long milis) {
+        Date date = new Date(milis);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        Log.d(TAG, "millisToDate:  " + outputFormat.format(date) );
+
+        return outputFormat.format(date);
+    }
+
+    public static class Callbacks {
         public void onItemClicked() {
             // do something
         }
+
+
+        public boolean onTaskLongClick(View view, TaskTime taskTime) {
+            Log.d(TAG, "onTaskLongClick: " + taskTime.toString());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    getRepository(MainActivity.getContext()).deleteTaskTime(taskTime);
+                }
+            }).start();
+            Snackbar.make(view, "Task deleted", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            return true;
+        }
+
     }
 }

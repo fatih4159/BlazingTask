@@ -20,6 +20,7 @@
             app:cardBackgroundColor="@android:color/holo_orange_light"
             app:cardCornerRadius="10dp"
             android:onClick="@{() -> callback.onItemClicked()}"
+            android:onLongClick="@{(v) -> callback.onTaskLongClick(v, data)}"
             android:layout_margin="4dp">
 
 

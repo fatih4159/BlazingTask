@@ -15,6 +15,7 @@ public class TaskViewModel  {
     private static TaskViewModel instance;
     private MutableLiveData<List<TaskTime>> taskTimes;
     private AdapterTaskTime adapterTaskTime;
+    private MutableLiveData<TaskTime> selectedTaskTime;
 
     public TaskViewModel() {
         taskTimes = new MutableLiveData<>();
@@ -49,5 +50,13 @@ public class TaskViewModel  {
 
     public void setAdapterTaskTime(AdapterTaskTime adapterTaskTime) {
         this.adapterTaskTime = adapterTaskTime;
+    }
+
+    public MutableLiveData<TaskTime> getSelectedTaskTime() {
+        return selectedTaskTime;
+    }
+
+    public void setSelectedTaskTime(MutableLiveData<TaskTime> selectedTaskTime) {
+        this.selectedTaskTime = selectedTaskTime;
     }
 }

@@ -1,5 +1,6 @@
 package de.agx.blazingtask.db;
 
+import android.content.Context;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -19,6 +20,9 @@ import io.reactivex.Maybe;
  */
 public class TaskRepository {
 
+    private static final String TAG = "TaskRepository";
+    private static TaskRepository instance;
+
     private TaskSettingsDao taskSettingsDao;
     private TaskTimeDao taskTimeDao;
     private TaskTypeDao taskTypeDao;
@@ -33,7 +37,20 @@ public class TaskRepository {
 
     // TaskSettings methods
 
-
+    public static TaskRepository getRepository(Context context){
+        AppDatabase db = AppDatabase.getInstance(context);
+        if(instance == null){
+            instance = new TaskRepository(db);
+            if (instance != null) {
+                return instance;
+            }
+            else {
+                throw new RuntimeException("TaskRepository is null");
+            }
+        }else {
+            return instance;
+        }
+    }
 
     public TaskSettings getTaskSettingsById(int id) {
         return taskSettingsDao.getById(id);
@@ -83,11 +100,11 @@ public class TaskRepository {
 
     // TaskType methods
 
-    public Maybe<List<TaskType>> getAllTaskTypes() {
+    public LiveData<List<TaskType>> getAllTaskTypes() {
         return taskTypeDao.getAll();
     }
 
-    public Maybe<TaskType> getTaskTypeById(int id) {
+    public LiveData<TaskType> getTaskTypeById(int id) {
         return taskTypeDao.getById(id);
     }
 
@@ -109,11 +126,11 @@ public class TaskRepository {
 
     // TaskUser methods
 
-    public Maybe<List<TaskUser>> getAllTaskUsers() {
+    public LiveData<List<TaskUser>> getAllTaskUsers() {
         return taskUserDao.getAll();
     }
 
-    public Maybe<TaskUser> getTaskUserById(long userId) {
+    public LiveData<TaskUser> getTaskUserById(long userId) {
         return taskUserDao.getById(userId);
     }
 

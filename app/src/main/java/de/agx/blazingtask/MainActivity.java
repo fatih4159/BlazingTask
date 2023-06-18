@@ -1,5 +1,6 @@
 package de.agx.blazingtask;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -20,9 +21,14 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     AppDatabase appDatabase;
+    private static Context context ;
+    public static Context getContext(){
+        return context;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = getApplicationContext();
         super.onCreate(savedInstanceState);
         appDatabase = AppDatabase.getInstance(getApplicationContext());
 

@@ -44,6 +44,7 @@ public  class AdapterTaskTime extends DataBoundAdapter<TasktimeItemBinding> {
         protected void bindItem(DataBoundViewHolder<TasktimeItemBinding> holder, int position, List<Object> payloads) {
             //LogMsg(9,"AdapterDelivery bindItem["+position+"] of["+mDeliveriesList.size()+"] List["+payloads.size()+"]");
             holder.binding.setData(mDeliveriesList.get(position));
+            holder.binding.setCallback(new TaskTime.Callbacks());
 
         }
     }
